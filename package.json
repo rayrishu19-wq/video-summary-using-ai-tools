@@ -1,0 +1,40 @@
+{
+  "name": "summarize-a-video",
+  "version": "1.0.0",
+  "description": "AI-powered video summarization tool using Google Gemini",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node lib/index.js",
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "cli": "tsx src/cli.ts",
+    "deploy": "gcloud run deploy"
+  },
+  "keywords": [
+    "ai",
+    "video",
+    "summarization",
+    "gemini",
+    "genkit"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@genkit-ai/googleai": "^1.13.0",
+    "genkit": "^1.13.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "dotenv": "^16.3.1",
+    "express-rate-limit": "^7.1.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/multer": "^1.4.11",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
