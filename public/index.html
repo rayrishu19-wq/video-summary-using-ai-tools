@@ -3,8 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Give a Quickshort for Summary From video</title>
+    <title>AI Summarizer | Video to Insight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+      :root {
+        --bg-dark: #0a0a12;
+        --card-bg: rgba(30, 30, 45, 0.7);
+        --accent-primary: #8b5cf6;
+        --accent-secondary: #ec4899;
+        --text-main: #f3f4f6;
+        --text-muted: #9ca3af;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --glass-bg: rgba(255, 255, 255, 0.03);
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -12,608 +26,285 @@
       }
 
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Outfit', sans-serif;
+        background-color: var(--bg-dark);
+        background-image: 
+          radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+          radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+          radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+        background-attachment: fixed;
+        color: var(--text-main);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 40px 20px;
+        overflow-x: hidden;
       }
 
       .main-container {
         display: flex;
         gap: 30px;
-        max-width: 1200px;
+        max-width: 1300px;
         width: 100%;
-        align-items: flex-start;
+        align-items: stretch;
       }
 
       .container {
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--border-color);
+        border-radius: 24px;
         padding: 40px;
         flex: 1;
         position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
       }
 
       .container:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-      }
-
-      .form-container {
-        max-width: 500px;
-        animation: slideInFromLeft 0.8s ease-out;
-      }
-
-      .result-container {
-        max-width: 500px;
-        min-height: 400px;
-        display: flex;
-        flex-direction: column;
-        animation: slideInFromRight 0.8s ease-out 0.2s both;
-      }
-
-      .result-placeholder {
-        text-align: center;
-        color: #999;
-        font-style: italic;
-        margin-top: 50px;
-        padding: 40px;
-        border: 2px dashed #e1e5e9;
-        border-radius: 10px;
-        background: #fafafa;
-        transition: all 0.3s ease;
-      }
-
-      .result-loading {
-        text-align: center;
-        padding: 40px;
-        transition: all 0.3s ease;
-      }
-
-      .result-loading.show {
-        animation: fadeIn 0.5s ease;
-      }
-
-      .result-placeholder h3 {
-        color: #666;
-        margin-bottom: 10px;
-        font-size: 1.2rem;
-      }
-
-      .result-placeholder p {
-        color: #999;
-        font-size: 0.9rem;
-        line-height: 1.5;
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.2);
       }
 
       .container::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
+        inset: 0;
+        border-radius: 24px;
+        padding: 2px;
+        background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0.3;
+        transition: opacity 0.3s ease;
       }
 
-      h1 {
-        text-align: center;
-        color: #333;
-        margin-bottom: 10px;
-        font-size: 2.5rem;
-        font-weight: 700;
+      .container:hover::before {
+        opacity: 0.8;
       }
+
+      .form-container {
+        animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .result-container {
+        animation: slideInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      h1, h2 {
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+        background: linear-gradient(to right, #fff, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      h1 { font-size: 3rem; }
+      h2 { font-size: 2.2rem; }
 
       .subtitle {
-        text-align: center;
-        color: #666;
-        margin-bottom: 30px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+        font-weight: 300;
         font-size: 1.1rem;
       }
 
       .form-group {
-        margin-bottom: 25px;
+        margin-bottom: 24px;
       }
 
       label {
         display: block;
-        margin-bottom: 8px;
-        color: #333;
+        margin-bottom: 10px;
+        color: var(--text-main);
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
-      input,
-      textarea {
+      input, textarea {
         width: 100%;
-        padding: 15px;
-        border: 2px solid #e1e5e9;
-        border-radius: 10px;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: white;
         font-size: 1rem;
         transition: all 0.3s ease;
         font-family: inherit;
-        background: #fafafa;
       }
 
-      input:focus,
-      textarea:focus {
+      input:focus, textarea:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        background: white;
-        transform: translateY(-2px);
-      }
-
-      input:hover,
-      textarea:hover {
-        border-color: #667eea;
-        background: white;
-      }
-
-      textarea {
-        resize: vertical;
-        min-height: 100px;
-      }
-
-      .btn {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #05fc26 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-        transform: translateY(0);
-      }
-
-      .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
-        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-      }
-
-      .btn:active {
-        transform: translateY(-1px);
-        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-      }
-
-      .btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
-
-      .btn.loading {
-        pointer-events: none;
-      }
-
-      .btn.loading::after {
-        content: "";
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        top: 50%;
-        left: 50%;
-        margin-left: -10px;
-        margin-top: -10px;
-        border: 2px solid transparent;
-        border-top: 2px solid white;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes slideInFromLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes slideInFromRight {
-        from {
-          opacity: 0;
-          transform: translateX(30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          transform: translateY(0);
-        }
-        40% {
-          transform: translateY(-10px);
-        }
-        60% {
-          transform: translateY(-5px);
-        }
-      }
-
-      @keyframes shimmer {
-        0% {
-          background-position: -200px 0;
-        }
-        100% {
-          background-position: calc(200px + 100%) 0;
-        }
-      }
-
-      @keyframes typewriter {
-        from {
-          width: 0;
-        }
-        to {
-          width: 100%;
-        }
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-
-      /* Animation classes */
-      .animate-fade-in {
-        animation: fadeIn 0.6s ease-out;
-      }
-
-      .animate-slide-left {
-        animation: slideInFromLeft 0.6s ease-out;
-      }
-
-      .animate-slide-right {
-        animation: slideInFromRight 0.6s ease-out;
-      }
-
-      .animate-pulse {
-        animation: pulse 2s infinite;
-      }
-
-      .animate-bounce {
-        animation: bounce 1s infinite;
-      }
-
-      .animate-float {
-        animation: float 3s ease-in-out infinite;
-      }
-
-      .animate-typewriter {
-        overflow: hidden;
-        white-space: nowrap;
-        animation: typewriter 2s steps(40, end);
-      }
-
-      .result {
-        margin-top: 30px;
-        padding: 20px;
-        background: #f8f9fa;
-        border-radius: 10px;
-        border-left: 4px solid #667eea;
-        display: none;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .result::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(180deg, #667eea, #764ba2);
-        animation: shimmer 2s infinite;
-      }
-
-      .result.show {
-        display: block;
-        animation: fadeIn 0.5s ease;
-      }
-
-      .result.show:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .result h3 {
-        color: #333;
-        margin-bottom: 15px;
-        font-size: 1.3rem;
-      }
-
-      .result p {
-        color: #555;
-        line-height: 1.6;
-        white-space: pre-wrap;
-      }
-
-      .error {
-        background: #fee;
-        border-left-color: #e74c3c;
-        color: #c0392b;
+        border-color: var(--accent-primary);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
       }
 
       .example-prompts {
-        margin-top: 20px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-      }
-
-      .example-prompts:hover {
-        background: #e9ecef;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 24px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
       }
 
       .example-prompts h4 {
-        color: #333;
-        margin-bottom: 10px;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .example-prompts h4::before {
-        content: "";
-        animation: pulse 2s infinite;
-      }
-
-      .example-prompts ul {
-        list-style: none;
-        padding: 0;
+        font-size: 0.9rem;
+        color: var(--accent-primary);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
       }
 
       .example-prompts li {
-        padding: 8px 12px;
-        color: #666;
+        padding: 10px 14px;
+        color: var(--text-muted);
         font-size: 0.9rem;
         cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 6px;
-        margin: 4px 0;
-        border-left: 3px solid transparent;
+        transition: all 0.2s ease;
+        border-radius: 8px;
+        margin-bottom: 4px;
+        list-style: none;
       }
 
       .example-prompts li:hover {
-        color: #667eea;
-        background: rgba(102, 126, 234, 0.1);
-        border-left-color: #667eea;
-        transform: translateX(5px);
-        padding-left: 15px;
+        background: rgba(139, 92, 246, 0.1);
+        color: white;
+        transform: translateX(6px);
       }
 
-      .example-prompts li:active {
-        transform: translateX(3px) scale(0.98);
-      }
-
-      .loading-text {
-        text-align: center;
-        color: #666;
-        margin-top: 20px;
-        font-style: italic;
-      }
-
-      .progress-bar {
+      .btn-primary {
         width: 100%;
-        height: 6px;
-        background: #e1e5e9;
-        border-radius: 3px;
-        margin: 20px 0;
-        overflow: hidden;
-        display: none;
-      }
-
-      .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        border-radius: 3px;
-        width: 0%;
-        transition: width 0.3s ease;
-        animation: progress-animation 2s ease-in-out infinite;
-      }
-
-      @keyframes progress-animation {
-        0% {
-          width: 0%;
-        }
-        50% {
-          width: 70%;
-        }
-        100% {
-          width: 100%;
-        }
-      }
-
-      .timeout-warning {
-        background: #fff3cd;
-        border: 1px solid #ffeaa7;
-        color: #856404;
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 20px;
-        display: none;
-      }
-
-      .timeout-warning.show {
-        display: block;
-        animation: fadeIn 0.5s ease;
-      }
-
-      .timeout-warning h4 {
-        margin: 0 0 10px 0;
-        color: #856404;
-      }
-
-      .timeout-warning p {
-        margin: 0;
-        font-size: 0.9rem;
-        line-height: 1.4;
-      }
-
-      .estimated-time {
-        text-align: center;
-        color: #666;
-        font-size: 0.9rem;
+        padding: 18px;
+        background: linear-gradient(135deg, var(--accent-primary) 0%, #7c3aed 100%);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         margin-top: 10px;
-        display: none;
+        box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
       }
 
-      .estimated-time.show {
-        display: block;
+      .btn-primary:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 40px rgba(124, 58, 237, 0.5);
+        filter: brightness(1.1);
       }
 
-      .info-box {
-        background: #e3f2fd;
-        border: 1px solid #2196f3;
-        color: #1976d2;
-        padding: 15px;
-        border-radius: 10px;
-        margin: 20px 0;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .info-box::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
+      .btn-secondary {
         width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.4),
-          transparent
-        );
-        transition: left 0.5s;
+        padding: 14px;
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 16px;
       }
 
-      .info-box:hover::before {
-        left: 100%;
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        border-color: rgba(255, 255, 255, 0.3);
       }
 
-      .info-box:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
-      }
-
-      .info-box h4 {
-        margin: 0 0 10px 0;
-        color: #1976d2;
+      .result-placeholder {
+        text-align: center;
+        padding: 60px 40px;
+        border: 2px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        margin-top: 20px;
+        flex-grow: 1;
         display: flex;
-        align-items: center;
-        gap: 8px;
+        flex-direction: column;
+        justify-content: center;
       }
 
-      .info-box h4::before {
-        content: "";
-        animation: float 2s ease-in-out infinite;
+      .result-placeholder h3 {
+        color: white;
+        font-size: 1.5rem;
+        margin-bottom: 12px;
       }
 
-      .info-box ul {
-        margin: 0;
-        padding-left: 20px;
+      .result {
+        margin-top: 20px;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        border-left: 4px solid var(--accent-primary);
+        display: none;
+        animation: fadeIn 0.6s ease;
       }
 
-      .info-box li {
-        margin: 0;
-        padding: 5px 0;
+      .result.show { display: block; }
+
+      .result h3 {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+        color: var(--accent-primary);
       }
 
-      .info-box p {
-        margin: 10px 0 0 0;
+      .result p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: #d1d5db;
+        white-space: pre-wrap;
       }
 
-      @media (max-width: 768px) {
-        .main-container {
-          flex-direction: column;
-          gap: 20px;
-        }
+      .loading-animation {
+        display: none;
+        text-align: center;
+        padding: 40px;
+        flex-grow: 1;
+      }
 
-        .container {
-          padding: 30px 20px;
-          margin: 10px;
-        }
+      .spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid rgba(255, 255, 255, 0.05);
+        border-top: 4px solid var(--accent-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+      }
 
-        .form-container,
-        .result-container {
-          max-width: 100%;
-        }
+      @keyframes spin { 100% { transform: rotate(360deg); } }
+      
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-40px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
 
-        h1 {
-          font-size: 2rem;
-        }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(40px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
 
-        h2 {
-          font-size: 1.5rem;
-        }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 900px) {
+        .main-container { flex-direction: column; }
+        h1 { font-size: 2.2rem; }
+        .container { padding: 30px 20px; }
       }
     </style>
   </head>
@@ -701,16 +392,15 @@
             </p>
           </div> -->
 
-          <button type="submit" class="btn" id="submitBtn">
+          <button type="submit" class="btn-primary" id="submitBtn">
              Generate Summary
           </button>
         </form>
 
         <button
           type="button"
-          class="btn"
+          class="btn-secondary"
           id="resetBtn"
-          style="margin-top: 15px; background: #6c757d; opacity: 0.8"
           onclick="resetForm()"
         >
            Reset Form
@@ -751,25 +441,13 @@
         </div>
 
         <div
-          class="result-loading"
+          class="loading-animation"
           id="resultLoading"
-          style="display: none; text-align: center; padding: 40px"
         >
-          <div
-            style="
-              width: 50px;
-              height: 50px;
-              border: 4px solid #e1e5e9;
-              border-top: 4px solid #667eea;
-              border-radius: 50%;
-              animation: spin 1s linear infinite;
-              margin: 0 auto 20px;
-            "
-          ></div>
-          <h3 style="color: #333; margin-bottom: 10px">Processing Video...</h3>
-          <p style="color: #666; font-size: 0.9rem">
-            AI is analyzing your video and generating a summary. This may take a
-            few moments.
+          <div class="spinner"></div>
+          <h3>Analyzing Video...</h3>
+          <p class="subtitle">
+            Our AI is processing your request. This usually takes 10-30 seconds.
           </p>
         </div>
 
@@ -785,11 +463,6 @@
       const submitBtn = document.getElementById("submitBtn");
       const result = document.getElementById("result");
       const summaryText = document.getElementById("summaryText");
-      const loadingText = document.getElementById("loadingText");
-      const progressBar = document.getElementById("progressBar");
-      const progressFill = document.getElementById("progressFill");
-      const timeoutWarning = document.getElementById("timeoutWarning");
-      const estimatedTime = document.getElementById("estimatedTime");
       const resultPlaceholder = document.getElementById("resultPlaceholder");
       const resultLoading = document.getElementById("resultLoading");
 
@@ -799,28 +472,21 @@
 
       function showLoading() {
         submitBtn.disabled = true;
-        submitBtn.classList.add("loading");
-        submitBtn.textContent = "Processing...";
-        loadingText.style.display = "block";
+        submitBtn.style.opacity = "0.7";
+        submitBtn.textContent = "Analysing Video...";
+        
         result.classList.remove("show");
         resultPlaceholder.style.display = "none";
         resultLoading.style.display = "block";
-        resultLoading.classList.add("show");
-        progressBar.style.display = "block";
-        progressFill.style.width = "0%";
-        timeoutWarning.classList.remove("show");
-        estimatedTime.classList.remove("show");
+        
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }
 
       function hideLoading() {
         submitBtn.disabled = false;
-        submitBtn.classList.remove("loading");
-        submitBtn.textContent = " Generate Summary";
-        loadingText.style.display = "none";
-        progressBar.style.display = "none";
-        progressFill.style.width = "100%";
+        submitBtn.style.opacity = "1";
+        submitBtn.innerHTML = "Generate Summary";
         resultLoading.style.display = "none";
-        resultLoading.classList.remove("show");
       }
 
       function showResult(content, isError = false) {
@@ -829,21 +495,11 @@
         resultPlaceholder.style.display = "none";
         resultLoading.style.display = "none";
 
-        // Add success animation for successful results
         if (!isError) {
-          setTimeout(addSuccessAnimation, 100);
+          result.style.animation = "fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
         }
 
-        result.scrollIntoView({ behavior: "smooth" });
-      }
-
-      // Add success animation
-      function addSuccessAnimation() {
-        const result = document.getElementById("result");
-        result.style.animation = "bounce 0.6s ease";
-        setTimeout(() => {
-          result.style.animation = "";
-        }, 600);
+        result.scrollIntoView({ behavior: "smooth", block: "center" });
       }
 
       function resetResults() {
@@ -871,31 +527,9 @@
         }
 
         showLoading();
-
-        // Set up timeout handling
-        const timeoutDuration = 300000; // 5 minutes
-        let timeoutId;
         let startTime = Date.now();
 
-        const showTimeoutWarning = () => {
-          timeoutWarning.classList.add("show");
-          estimatedTime.classList.add("show");
-          const elapsed = Math.floor((Date.now() - startTime) / 1000);
-          estimatedTime.textContent = `Elapsed Time: ${elapsed} seconds`;
-        };
-
-        // Show timeout warning after 2 minutes
-        timeoutId = setTimeout(showTimeoutWarning, 120000);
-
         try {
-          const controller = new AbortController();
-          const timeoutController = new AbortController();
-
-          // Set up fetch timeout
-          const fetchTimeout = setTimeout(() => {
-            timeoutController.abort();
-          }, timeoutDuration);
-
           const response = await fetch("/api/summarize", {
             method: "POST",
             headers: {
@@ -904,12 +538,8 @@
             body: JSON.stringify({
               videoURL: videoURL,
               prompt: prompt || "Please summarize the following video:"
-            }),
-            signal: timeoutController.signal
+            })
           });
-
-          clearTimeout(fetchTimeout);
-          clearTimeout(timeoutId);
 
           const data = await response.json();
 
@@ -927,16 +557,7 @@
             );
           }
         } catch (error) {
-          clearTimeout(timeoutId);
-
-          if (error.name === "AbortError") {
-            showResult(
-              " Request timed out after 5 minutes. Video processing can take a while for longer videos. Please try again or use a shorter video.",
-              true
-            );
-          } else {
-            showResult(`Network error: ${error.message}`, true);
-          }
+          showResult(`Network error: ${error.message}`, true);
         } finally {
           hideLoading();
         }
@@ -949,42 +570,25 @@
         this.style.height = this.scrollHeight + "px";
       });
 
-      // Add entrance animations
-      document.addEventListener("DOMContentLoaded", function () {
-        // Animate form elements on load
-        const formElements = document.querySelectorAll(".form-group");
-        formElements.forEach((element, index) => {
-          element.style.opacity = "0";
-          element.style.transform = "translateY(20px)";
-          setTimeout(() => {
-            element.style.transition = "all 0.6s ease";
-            element.style.opacity = "1";
-            element.style.transform = "translateY(0)";
-          }, index * 100);
-        });
-
-        // Animate title with typewriter effect
+      // Entrance Animations
+      document.addEventListener("DOMContentLoaded", () => {
         const title = document.querySelector("h1");
-        title.style.overflow = "hidden";
-        title.style.whiteSpace = "nowrap";
-        title.style.width = "0";
-        setTimeout(() => {
-          title.style.transition = "width 2s ease";
-          title.style.width = "100%";
-        }, 500);
+        const subtitle = document.querySelector(".subtitle");
+        
+        title.style.opacity = "0";
+        title.style.transform = "translateY(-20px)";
+        subtitle.style.opacity = "0";
 
-        // Add floating animation to emojis
-        const emojis = document.querySelectorAll("h1, h2, h3");
-        emojis.forEach((emoji) => {
-          const text = emoji.textContent;
-          if (
-            text.includes("") ||
-            text.includes("") ||
-            text.includes("")
-          ) {
-            emoji.style.animation = "float 3s ease-in-out infinite";
-          }
-        });
+        setTimeout(() => {
+          title.style.transition = "all 0.8s ease";
+          title.style.opacity = "1";
+          title.style.transform = "translateY(0)";
+        }, 200);
+
+        setTimeout(() => {
+          subtitle.style.transition = "all 0.8s ease";
+          subtitle.style.opacity = "1";
+        }, 500);
       });
     </script>
   </body>

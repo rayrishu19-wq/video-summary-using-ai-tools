@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-import { googleAI } from "@genkit-ai/googleai";
+import { googleAI } from "@genkit-ai/google-genai";
 import { genkit } from "genkit";
 import dotenv from "dotenv";
 import rateLimit from "express-rate-limit";
@@ -37,7 +37,7 @@ console.log(`🔑 API Key configured: ${maskedKey}`);
 // Initialize AI
 const ai = genkit({
   plugins: [googleAI()],
-  model: googleAI.model("gemini-2.0-flash")
+  model: googleAI.model("gemini-3-flash-preview")
 });
 
 // Middleware
