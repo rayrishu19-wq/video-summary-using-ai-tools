@@ -77,15 +77,17 @@ app.get("/", (req, res) => {
 // API endpoint for video summarization
 app.post("/api/summarize", async (req, res) => {
   try {
-    const { videoURL, prompt } = req.body;
+    const { videoURL, prompt, targetLanguage = "English" } = req.body;
 
     if (!videoURL) {
       return res.status(400).json({ error: "Video URL is required" });
     }
 
     const defaultPrompt = prompt || "Please summarize the following video:";
+    const finalPrompt = `${defaultPrompt}\n\nIMPORTANT: Please provide the final response in ${targetLanguage}.`;
 
     console.log(`🎬 Processing video: ${videoURL}`);
+    console.log(`🌍 Target Language: ${targetLanguage}`);
     console.log(`📝 Using prompt: ${defaultPrompt}`);
 
     // Set a timeout for the AI processing (5 minutes)
@@ -99,7 +101,7 @@ app.post("/api/summarize", async (req, res) => {
     // Process video with AI
     const processingPromise = ai.generate({
       prompt: [
-        { text: defaultPrompt },
+        { text: finalPrompt },
         { media: { url: videoURL, contentType: "video/mp4" } }
       ]
     });

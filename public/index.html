@@ -331,6 +331,14 @@
           </div>
 
           <div class="form-group">
+            <label for="targetLanguage">Target Language</label>
+            <select id="targetLanguage" name="targetLanguage" onchange="updatePrompts()">
+              <option value="English" selected>English (English)</option>
+              <option value="Hindi">Hindi (हिन्दी)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label for="prompt">Custom Prompt (Optional)</label>
             <textarea
               id="prompt"
@@ -340,27 +348,13 @@
           </div>
 
           <div class="example-prompts">
-            <h4> Example Prompts:</h4>
-            <ul>
-              <li
-                onclick="setPrompt('Summarize the key points of this video in bullet points')"
-              >
-                • Summarize the key points of this video in bullet points
+            <h4 id="examplePromptTitle"> Example Prompts:</h4>
+            <ul id="promptsList">
+              <li onclick="setPrompt('Summarize the key points of this video in bullet points')">
+                • Summarize the key points of this video
               </li>
-              <li
-                onclick="setPrompt('What are the main takeaways from this video?')"
-              >
-                • What are the main takeaways from this video?
-              </li>
-              <li
-                onclick="setPrompt('Create a detailed summary with timestamps')"
-              >
-                • Create a detailed summary with timestamps
-              </li>
-              <li
-                onclick="setPrompt('Explain the concepts discussed in this video in simple terms')"
-              >
-                • Explain the concepts discussed in this video in simple terms
+              <li onclick="setPrompt('What are the main takeaways from this video?')">
+                • What are the main takeaways?
               </li>
             </ul>
           </div>
@@ -521,6 +515,7 @@
         const formData = new FormData(form);
         const videoURL = formData.get("videoURL");
         const prompt = formData.get("prompt");
+        const targetLanguage = formData.get("targetLanguage");
 
         if (!videoURL) {
           showResult("Please enter a valid video URL.", true);
@@ -538,7 +533,8 @@
             },
             body: JSON.stringify({
               videoURL: videoURL,
-              prompt: prompt || "Please summarize the following video:"
+              prompt: prompt,
+              targetLanguage: targetLanguage
             })
           });
 
@@ -570,6 +566,33 @@
         this.style.height = "auto";
         this.style.height = this.scrollHeight + "px";
       });
+
+      const prompts = {
+        English: [
+          { label: "• Summarize the key points", value: "Summarize the key points of this video in bullet points" },
+          { label: "• Main takeaways", value: "What are the main takeaways from this video?" },
+          { label: "• Detailed with timestamps", value: "Create a detailed summary with timestamps" }
+        ],
+        Hindi: [
+          { label: "• मुख्य बिंदुओं का सारांश", value: "इस वीडियो के मुख्य बिंदुओं का बुलेट पॉइंट्स में सारांश दें" },
+          { label: "• मुख्य बातें", value: "इस वीडियो से मुख्य सीख क्या हैं?" },
+          { label: "• सरल भाषा में समझाएं", value: "इस वीडियो में चर्चा की गई अवधारणाओं को सरल शब्दों में समझाएं" }
+        ]
+      };
+
+      function updatePrompts() {
+        const lang = document.getElementById("targetLanguage").value;
+        const list = document.getElementById("promptsList");
+        const title = document.getElementById("examplePromptTitle");
+        const promptInput = document.getElementById("prompt");
+        
+        title.textContent = lang === 'Hindi' ? "उदाहरण प्रॉम्प्ट:" : "Example Prompts:";
+        promptInput.placeholder = lang === 'Hindi' ? "कृपया निम्नलिखित वीडियो का सारांश दें:" : "Please summarize the following video:";
+        
+        list.innerHTML = prompts[lang].map(p => `
+          <li onclick="setPrompt('${p.value}')">${p.label}</li>
+        `).join('');
+      }
 
       // Entrance Animations
       document.addEventListener("DOMContentLoaded", () => {
