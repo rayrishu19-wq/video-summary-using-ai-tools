@@ -267,6 +267,26 @@
         white-space: pre-wrap;
       }
 
+      .copy-btn {
+        margin-top: 15px;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+      }
+
+      .copy-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: var(--accent-primary);
+      }
+
       .loading-animation {
         display: none;
         text-align: center;
@@ -449,6 +469,10 @@
         <div class="result" id="result">
           <h3> Summary</h3>
           <p id="summaryText"></p>
+          <button class="copy-btn" id="copyBtn" onclick="copyToClipboard()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy Summary
+          </button>
         </div>
       </div>
     </div>
@@ -460,6 +484,23 @@
       const summaryText = document.getElementById("summaryText");
       const resultPlaceholder = document.getElementById("resultPlaceholder");
       const resultLoading = document.getElementById("resultLoading");
+      const copyBtn = document.getElementById("copyBtn");
+
+      async function copyToClipboard() {
+        const text = summaryText.textContent;
+        try {
+          await navigator.clipboard.writeText(text);
+          const originalText = copyBtn.innerHTML;
+          copyBtn.innerHTML = "✓ Copied!";
+          copyBtn.style.color = "#10b981";
+          setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.style.color = "white";
+          }, 2000);
+        } catch (err) {
+          console.error("Failed to copy: ", err);
+        }
+      }
 
       function setPrompt(prompt) {
         document.getElementById("prompt").value = prompt;
