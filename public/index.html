@@ -253,6 +253,7 @@
       }
 
       .result.show { display: block; }
+      .result.error { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.05); }
 
       .result h3 {
         font-size: 1.2rem;
@@ -558,8 +559,10 @@
         const prompt = formData.get("prompt");
         const targetLanguage = formData.get("targetLanguage");
 
-        if (!videoURL) {
-          showResult("Please enter a valid video URL.", true);
+        // Basic URL validation
+        const urlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+        if (!videoURL || !urlPattern.test(videoURL)) {
+          showResult("⚠️ Please enter a valid video URL.", true);
           return;
         }
 
