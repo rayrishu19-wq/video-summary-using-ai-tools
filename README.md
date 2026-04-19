@@ -1,17 +1,62 @@
-# video-summary-using-ai-tools
-<img width="1887" height="905" alt="image" src="https://github.com/user-attachments/assets/7fec44a0-5559-444b-8c4e-c431c45ec7b1" />
-I can summarize your video using AI — but first, please upload the video file here (any common format like .mp4, .mov, .avi, etc.), or paste a YouTube link if it’s online.
+# 🎬 Summarize-A-Video AI
 
-Once you share it, I’ll:
+![Summarize-A-Video Hero](docs/images/hero.png)
 
-Transcribe the video (turn speech into text).
+A high-performance, AI-driven video summarization tool built with **Google Gemini** and **Firebase Genkit**. This tool allows users to transform long videos into concise, actionable summaries in seconds.
 
-Analyze the content to identify key points, topics, and tone.
+## ✨ Key Features
 
-Provide a concise AI-generated summary, and if you want, also:
+- 📝 **AI Transcription**: Converts speech from video or audio files into accurate text.
+- 🤖 **AI-Powered Summarization**: Deeply analyzes content to extract key points, main themes, and recurring topics.
+- 📍 **Timestamped Highlights**: Automatically generates a timeline of important moments.
+- 🌍 **Multi-Language Support**: Supports summaries in English and Hindi.
+- 🔗 **URL & File Support**: Process local uploads (.mp4, .mov, .avi) or remote YouTube links.
+- ⚡ **Real-time Processing**: Fast analysis using the latest Gemini models.
 
-Bullet-point highlights
+## 🛠️ Tech Stack
 
-Chapter/time-stamped summary
+- **Runtime**: Node.js/TypeScript
+- **Framework**: Express.js
+- **AI Core**: Google Gemini 1.5 Pro/Flash
+- **Orchestration**: Firebase Genkit
+- **Storage**: Multer for local handling
+- **Styling**: Vanilla CSS (Premium Dark Theme)
 
-Action items or insights (for lectures or meetings)
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18+)
+- A Google AI (Gemini) API Key
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/video-summary-using-ai-tools.git
+   cd video-summary-using-ai-tools
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment:**
+   Create a `.env` file in the root directory:
+   ```env
+   GOOGLE_GENAI_API_KEY=your_api_key_here
+   ```
+
+4. **Run Development Server:**
+   ```bash
+   npm run dev
+   ```
+
+## 📈 Daily Progress
+
+We use a [JOURNAL.md](JOURNAL.md) to track daily improvements and small, atomic commits to ensure a high-quality development history.
+
+## 📄 License
+
+This project is licensed under the ISC License.
