@@ -21,7 +21,7 @@ This journal tracks the daily progress of the **Summarize-A-Video** project. Fol
 
 ## 🚀 Future Goals
 
-- [ ] **UI/UX**: Implement a progress bar for video uploads.
+- [ ] **UI/UX Enhancements**: Implement a progress bar for video uploads.
 - [ ] **Feature**: Add "Export as PDF" for summaries.
 - [ ] **DevOps**: Set up GitHub Actions for automatic testing.
 - [ ] **Analytics**: Track processing time for different video scales.
