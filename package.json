@@ -1,7 +1,7 @@
 {
   "name": "summarize-a-video",
   "version": "1.0.0",
-  "description": "AI-powered video summarization tool using Google Gemini",
+  "description": "AI-powered video summarization tool using Google Gemini and Genkit",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
