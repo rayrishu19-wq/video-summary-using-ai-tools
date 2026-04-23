@@ -69,12 +69,22 @@ const limiter = rateLimit({
 // Apply rate limiting to API routes
 app.use("/api/", limiter);
 
-// Serve the main HTML page
+/**
+ * @route GET /
+ * @desc  Serves the main frontend application
+ */
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });
 
-// API endpoint for video summarization
+/**
+ * @route POST /api/summarize
+ * @desc  Main endpoint for video summarization using AI.
+ *        Accepts a video URL, optional custom prompt, and target language.
+ * @param {string} videoURL - Public URL of the video to summarize.
+ * @param {string} [prompt] - Optional custom instructions for the AI.
+ * @param {string} [targetLanguage="English"] - The language for the final summary.
+ */
 app.post("/api/summarize", async (req, res) => {
   try {
     const { videoURL, prompt, targetLanguage = "English" } = req.body;
@@ -132,7 +142,10 @@ app.post("/api/summarize", async (req, res) => {
   }
 });
 
-// Health check endpoint for Cloud Run
+/**
+ * @route GET /health
+ * @desc  Health check endpoint for monitoring and cloud deployment status.
+ */
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "healthy",
