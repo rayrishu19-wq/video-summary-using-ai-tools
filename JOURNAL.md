@@ -4,7 +4,14 @@ This journal tracks the daily progress of the **Summarize-A-Video** project. Fol
 
 ## 📅 April 2026
 
-### 2026-04-17 (Today)
+### 2026-04-24 (Today)
+- [x] **README Enhancement**: Refined project description and tech stack details.
+- [x] **Community Docs**: Expanded `CONTRIBUTING.md` with clear guidelines.
+- [x] **Technical Docs**: Created `docs/ARCHITECTURE.md` explaining system flow.
+- [x] **Code Documentation**: Added JSDoc comments to core API routes in `src/index.ts`.
+- [x] **Progress Tracking**: Updated `JOURNAL.md` to reflect recent improvements.
+
+### 2026-04-17
 - [x] **Documentation Overhaul**: Created a professional README with a hero banner.
 - [x] **Project Structure**: Organized documentation assets into `/docs/images`.
 - [x] **Audit**: Reviewed `package.json` and project dependencies.
