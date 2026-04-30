@@ -24,3 +24,5 @@ Please be respectful and professional in all interactions. We aim to foster an i
 
 ## ⚖️ License
 By contributing, you agree that your contributions will be licensed under the project's [ISC License](LICENSE).
+
+
