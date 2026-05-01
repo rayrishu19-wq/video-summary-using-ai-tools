@@ -25,6 +25,13 @@ In an era of information overload, watching lengthy videos to find specific info
 - **Framework**: Firebase Genkit
 - **Deployment**: Optimized for Docker & Google Cloud Run
 
+## 🏛️ Project Architecture
+
+The application follows a modular architecture designed for scalability:
+- **Core Engine**: Handles the integration with Gemini and Firebase Genkit.
+- **Data Layer**: Manages transient video processing states and local caching.
+- **UI Component**: A clean, responsive interface focused on accessibility and speed.
+
 ## 🚀 Getting Started
 
 ### 📋 Prerequisites
