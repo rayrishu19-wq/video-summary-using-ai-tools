@@ -2,6 +2,14 @@
 
 This journal tracks the daily progress of the **Summarize-A-Video** project. Following the "Atomic Commits" philosophy, we record small improvements made each day to maintain a consistent and high-quality contribution history.
 
+## 📅 May 2026
+
+### 2026-05-02 (Today)
+- [x] **Project Hygiene**: Added `SECURITY.md` with clear vulnerability reporting policy.
+- [x] **Architecture Docs**: Added System Architecture section to the primary `README.md`.
+- [x] **Dev Experience**: Improved `.gitignore` with more robust exclusion patterns.
+- [x] **API Docs**: Enhanced JSDoc comments for system health monitoring.
+
 ## 📅 April 2026
 
 ### 2026-04-24 (Today)
