@@ -145,6 +145,8 @@ app.post("/api/summarize", async (req, res) => {
 /**
  * @route GET /health
  * @desc  Health check endpoint for monitoring and cloud deployment status.
+ *        Returns the current system status, server time, and application version.
+ * @returns {object} JSON object with status, timestamp, and version fields.
  */
 app.get("/health", (req, res) => {
   res.status(200).json({
