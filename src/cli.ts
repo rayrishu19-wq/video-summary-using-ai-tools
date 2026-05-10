@@ -1,4 +1,10 @@
-import { googleAI } from "@genkit-ai/googleai";
+/**
+ * @file cli.ts
+ * @desc Command line interface for video summarization using AI.
+ *       Usage: tsx src/cli.ts <video_url> [custom_prompt]
+ */
+
+import { googleAI } from "@genkit-ai/google-genai";
 import { genkit } from "genkit";
 import dotenv from "dotenv";
 
