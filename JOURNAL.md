@@ -4,7 +4,14 @@ This journal tracks the daily progress of the **Summarize-A-Video** project. Fol
 
 ## 📅 May 2026
 
-### 2026-05-02 (Today)
+### 2026-05-11 (Today)
+- [x] **Project Hygiene**: Added `.env.example` file for environment variables.
+- [x] **Dev Experience**: Added `.prettierrc` for consistent formatting.
+- [x] **Code Documentation**: Fixed invalid import and added JSDoc header in `cli.ts`.
+- [x] **Dev Experience**: Added `.editorconfig` for editor consistency.
+- [x] **Progress Tracking**: Updated `JOURNAL.md` with today's entries.
+
+### 2026-05-02
 - [x] **Project Hygiene**: Added `SECURITY.md` with clear vulnerability reporting policy.
 - [x] **Architecture Docs**: Added System Architecture section to the primary `README.md`.
 - [x] **Dev Experience**: Improved `.gitignore` with more robust exclusion patterns.
