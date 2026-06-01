@@ -72,3 +72,7 @@ We track daily improvements in our [JOURNAL.md](JOURNAL.md). This project follow
 This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
 
 
+
+
+## 👥 Author Contact
+For questions, support, or collaborations, contact **Rishu Ray** at `rayrishu19@gmail.com`.
