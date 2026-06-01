@@ -26,3 +26,10 @@ Please be respectful and professional in all interactions. We aim to foster an i
 By contributing, you agree that your contributions will be licensed under the project's [ISC License](LICENSE).
 
 
+
+## Commit Message Conventions
+We follow basic prefixing for clear history:
+- `feat:` for new features
+- `fix:` for bug fixes
+- `docs:` for documentation updates
+- `refactor:` for code restructuring
