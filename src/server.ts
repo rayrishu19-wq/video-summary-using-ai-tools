@@ -96,7 +96,7 @@ app.post("/api/summarize", async (req, res) => {
       );
     });
 
-    // Process video with AI
+    // Process video with AI - utilizing Google Genkit with Gemini Flash model
     const processingPromise = ai.generate({
       prompt: [
         { text: defaultPrompt },
