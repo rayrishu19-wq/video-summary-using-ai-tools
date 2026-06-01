@@ -28,6 +28,7 @@ const ai = genkit({
 (async () => {
   try {
     // Step 1: get command line arguments
+    // Retrieve the second command line argument representing the MP4 video URL
     const videoURL = process.argv[2];
     if (!videoURL) {
       console.error("Please provide a video URL as a command line argument.");
