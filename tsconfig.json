@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ES2022", // Targeting modern ES2022 runtime environments
     "module": "ESNext",
     "moduleResolution": "node",
     "outDir": "./lib",
