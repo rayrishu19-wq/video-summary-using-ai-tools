@@ -16,5 +16,6 @@ We take the security of this project seriously. If you find a security vulnerabi
 1. **Email us**: Send a detailed report to the project maintainer.
 2. **Details**: Include a description of the vulnerability, steps to reproduce, and potential impact.
 3. **Response**: We will acknowledge your report within 48 hours and provide a timeline for a fix.
+4. **SLA**: Critical issues will be patched and released within 7 days of confirmation.
 
 Thank you for helping keep this project secure!
