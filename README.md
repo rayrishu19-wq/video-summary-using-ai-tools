@@ -1,8 +1,13 @@
 # 🎬 Summarize-A-Video AI
 
-![Summarize-A-Video Hero](docs/images/hero.png)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-rayrishu19--wq.github.io%2Fvideo--summary--using--ai--tools-8b5cf6?style=for-the-badge&logo=googlechrome&logoColor=white)](https://rayrishu19-wq.github.io/video-summary-using-ai-tools/)
+![Status](https://img.shields.io/badge/Status-Live-brightgreen) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white) ![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white) ![Gemini](https://img.shields.io/badge/Powered_by-Google_Gemini-blue)
 
 A high-performance, AI-driven video summarization tool built with **Google Gemini** and **Firebase Genkit**. This tool allows users to transform long videos into concise, actionable summaries in seconds.
+
+> 🚀 **Direct Live Access**: You can test the app immediately online at [**rayrishu19-wq.github.io/video-summary-using-ai-tools**](https://rayrishu19-wq.github.io/video-summary-using-ai-tools/).
+> - **Demo Mode**: Pick any sample video chip (Machine Learning 101, JavaScript Event Loop, James Webb Telescope, Microservices) for instant structured insights with timestamps in English or Hindi.
+> - **Live Gemini AI**: Enter your free Gemini API key from [Google AI Studio](https://aistudio.google.com/) to summarize custom YouTube videos in real time!
 
 ## 🌟 Why This Project?
 
